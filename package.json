@@ -1,0 +1,22 @@
+{
+  "name": "node-js-tuts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "call.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon scripts.js",
+    "devstart": "nodemon server.js"
+  },
+  "keywords": [],
+  "author": "Samuel Asante",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "ejs": "^3.1.10",
+    "express": "^5.2.1",
+    "nodemon": "^3.1.11",
+    "typescript": "^5.9.3"
+  }
+}
