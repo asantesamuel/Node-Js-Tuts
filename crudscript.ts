@@ -9,6 +9,7 @@ const port: number = 8082;
 mongoose
   .connect(
     "mongodb+srv://samuelab:admin@cluster1.czabbgb.mongodb.net/BackendLectures"
+    //mongodb+srv://samuelab:admin@cluster1.czabbgb.mongodb.net/
   )
   .then((): void => console.log("MongoDB connected"))
   .catch((err: Error): void => console.error("MongoDB connection error:", err));
