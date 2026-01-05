@@ -1,6 +1,3 @@
-// const express = require("express");
-// const cors = require("cors");
-
 import express, {Request, Response} from "express"
 import cors from "cors"
 const app = express();
@@ -83,7 +80,7 @@ app.post("/api/invoices", (req: Request<{}, {}, CreatedInvoiceBody>, res: Respon
   res.status(201).json(newInvoice);
 });
 
-app.put("/api/invoices/:id", (req: Request<{}, {}, CreatedInvoiceBody>, res: Response) => {
+app.put("/api/invoices/:id", (req: Request, res: Response) => {
   const id:number = parseInt(req.params.id);
   const { client, amount, status } = req.body;
 
@@ -110,5 +107,3 @@ app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
 
-// const usersRouter = require('./routes/invoices')
-// app.use('/invoices', usersRouter)
