@@ -14,7 +14,7 @@ type invoices =
     id: number;
     client: string;
     amount: number;
-    status: string; // paid | pending | cancelled
+    status: "paid" | "pending" | "cancelled";
     createdAt: Date;
   };
 
@@ -47,9 +47,13 @@ app.get("/api/invoices", (req: Request, res: Response) => {
   res.json(invoices);
 });
 
-interface CreatedInvoiceBody
+interface CreatedInvoiceBody {
+  client: string;
+  amount: number;
+  status: "paid" | "pending" | "cancelled";
+}
 
-app.get("/api/invoices/:id", (req, res) => {
+app.get("/api/invoices/:id", (req: Request, res: Response) => {
   const id: number = parseInt(req.params.id);
   const invoice = invoices.find((inv) => inv.id === id);
 
@@ -60,14 +64,14 @@ app.get("/api/invoices/:id", (req, res) => {
   res.json(invoice);
 });
 
-app.post("/api/invoices", (req, res) => {
+app.post("/api/invoices", (req: Request<{}, {}, CreatedInvoiceBody>, res: Response) => {
   const { client, amount, status } = req.body;
 
   if (!client || !amount || !status) {
     return res.status(400).json({ message: "Missing required fields" });
   }
 
-  const newInvoice:inv1 = {
+  const newInvoice: invoices = {
     id: generateId(),
     client,
     amount,
@@ -79,7 +83,7 @@ app.post("/api/invoices", (req, res) => {
   res.status(201).json(newInvoice);
 });
 
-app.put("/api/invoices/:id", (req, res) => {
+app.put("/api/invoices/:id", (req: Request<{}, {}, CreatedInvoiceBody>, res: Response) => {
   const id:number = parseInt(req.params.id);
   const { client, amount, status } = req.body;
 
@@ -95,7 +99,7 @@ app.put("/api/invoices/:id", (req, res) => {
   res.json(invoice);
 });
 
-app.delete("/api/invoices/:id", (req, res) => {
+app.delete("/api/invoices/:id", (req:Request, res:Response) => {
   const id = parseInt(req.params.id);
   invoices = invoices.filter((inv) => inv.id !== id);
 
