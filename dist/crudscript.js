@@ -40,22 +40,20 @@ const express_1 = __importDefault(require("express"));
 const mongoose_1 = __importStar(require("mongoose"));
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
-const port = 8081;
-/* ---------- MongoDB Connection ---------- */
+const port = 8082;
 mongoose_1.default
-    .connect('mongodb+srv://samuelab:admin@cluster1.czabbgb.mongodb.net/BackendLectures')
-    .then(() => console.log('MongoDB connected'))
-    .catch((err) => console.error('MongoDB connection error:', err));
-/* ---------- Mongoose Schema ---------- */
+    .connect("mongodb+srv://samuelab:admin@cluster1.czabbgb.mongodb.net/BackendLectures"
+//mongodb+srv://samuelab:admin@cluster1.czabbgb.mongodb.net/
+)
+    .then(() => console.log("MongoDB connected"))
+    .catch((err) => console.error("MongoDB connection error:", err));
 const itemSchema = new mongoose_1.Schema({
     id: { type: Number, required: true },
     name: { type: String, required: true },
-    price: { type: Number, required: true }
+    price: { type: Number, required: true },
 });
-/* ---------- Mongoose Model ---------- */
-const Item = mongoose_1.default.model('Item', itemSchema);
-/* ---------- GET all items ---------- */
-app.get('/getItems', async (req, res) => {
+const Item = mongoose_1.default.model("Item", itemSchema);
+app.get("/getItems", async (req, res) => {
     try {
         const items = await Item.find();
         res.status(200).json(items);
@@ -64,26 +62,24 @@ app.get('/getItems', async (req, res) => {
         res.status(500).json(err);
     }
 });
-/* ---------- ADD item ---------- */
-app.post('/additem', async (req, res) => {
+app.post("/additem", async (req, res) => {
     const { id, name, price } = req.body;
     if (!id || !name || !price) {
-        res.status(400).send('Missing required fields: id, name, price');
+        res.status(400).send("Missing required fields: id, name, price");
         return;
     }
     try {
         const newItem = new Item({ id, name, price });
         await newItem.save();
         res.status(201).json({
-            message: 'Item added successfully',
-            item: newItem
+            message: "Item added successfully",
+            item: newItem,
         });
     }
     catch (err) {
         res.status(500).json(err);
     }
 });
-/* ---------- Server ---------- */
 app.listen(port, () => {
     console.log(`CRUD app listening on port ${port}...`);
 });

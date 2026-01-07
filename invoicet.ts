@@ -6,18 +6,7 @@ const port = 3002;
 app.use(cors());
 app.use(express.json());
 
-type invoices = 
-  {
-    id: number;
-    client: string;
-    amount: number;
-    status: "paid" | "pending" | "cancelled";
-    createdAt: Date;
-  };
-
-let invoiceList : invoices[]
-
-interface invoice
+interface invoices
   {
     id: number;
     client: string;
