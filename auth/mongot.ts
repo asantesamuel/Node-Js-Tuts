@@ -1,8 +1,16 @@
 import mongoose from "mongoose";
 import { Document } from "mongoose";
+import dotenv from "dotenv";
+dotenv.config();
+
+
+if (!process.env.MONGODB_URI) {
+  throw new Error("MONGODB_URI is not defined in the environment variables.");
+}
+const MONGODB_URI: string = process.env.MONGODB_URI; // In production, use process.env.MONGODB_URI
 
 mongoose
-  .connect(process.env.MONGODB_URI as string)
+  .connect(MONGODB_URI)
   .then((): void => {
     console.log("Connected to MongoDB for Auth Service");
   })

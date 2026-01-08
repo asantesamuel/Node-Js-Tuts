@@ -85,5 +85,5 @@ app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
 
-const usersRouter = require('./routes/invoices')
+const usersRouter = require('../routes/invoices')
 app.use('/invoices', usersRouter)

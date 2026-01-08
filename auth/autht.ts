@@ -3,8 +3,12 @@ import cors from "cors";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import cookieParser from "cookie-parser";
+import dotenv from "dotenv";
+dotenv.config();
+
 const app = express();
 import User from "./mongot";
+import { dot } from "node:test/reporters";
 
 app.use(express.json());
 app.use(cookieParser());
