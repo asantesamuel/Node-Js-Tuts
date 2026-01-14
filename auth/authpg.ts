@@ -8,10 +8,10 @@ import jwt from "jsonwebtoken";
 import cookieParser from "cookie-parser";
 import pool from "./pgdb";
 
-(async () => {
-  await pool.query("SELECT 1");
-  console.log("PostgreSQL connected");
-})();
+// (async () => {
+//   await pool.query("SELECT 1");
+//   console.log("PostgreSQL connected");
+// })();
 
 
 import {
@@ -57,6 +57,8 @@ app.post("/signup", async (req: Request, res: Response) => {
     hashedPassword,
     dob
   );
+
+
 
   const token = jwt.sign(
     { id: newUser.id, username: newUser.username },
