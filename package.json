@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "devstart": "nodemon server.js",
-    "dev": "nodemon --exec ts-node ./authpg.ts",
+    "dev": "nodemon --exec ts-node auth/authpg.ts",
     "build": "tsc",
     "start": "node dist/crudscript.js"
   },

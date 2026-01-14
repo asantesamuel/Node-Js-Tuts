@@ -6,6 +6,13 @@ import cors from "cors";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import cookieParser from "cookie-parser";
+import pool from "./pgdb";
+
+(async () => {
+  await pool.query("SELECT 1");
+  console.log("PostgreSQL connected");
+})();
+
 
 import {
   findUserByUsername,
@@ -17,7 +24,13 @@ const app = express();
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({ origin: "http://localhost:3001", credentials: true }));
+app.use(cors());
+
+app.use((err: Error, _req: Request, res: Response, _next: any) => {
+  console.error(err);
+  res.status(500).json({ message: "Internal server error" });
+});
+
 
 const JWT_SECRET = process.env.JWT_SECRET!;
 //get users
@@ -79,3 +92,8 @@ app.post("/login", async (req: Request, res: Response) => {
   res.json({ success: true, message: "Login successful" });
 });
 
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
+});
